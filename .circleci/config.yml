@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /migrate
+    working_directory: ~/migrate
     steps:
       - checkout
       - run: go test -v .
