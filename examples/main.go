@@ -32,11 +32,11 @@ func main() {
 		log.Fatal("please specify -dbname")
 	}
 
-	m := migrate.NewMigrator("postgres", dsn, root_dsn)
+	m := migrate.NewMigrator("postgres", dsn, root_dsn, dbname)
 
 	log.Print("==> create database")
 
-	if err := m.Create(dbname); err != nil {
+	if err := m.Create(); err != nil {
 		log.Fatalf("Failed to create database: %v\n", err)
 	}
 
@@ -51,7 +51,7 @@ func main() {
 	}
 
 	log.Print("==> drop database :)")
-	if err := m.Drop(dbname); err != nil {
+	if err := m.Drop(); err != nil {
 		log.Fatalf("Failed to drop database: %v\n", err)
 	}
 }

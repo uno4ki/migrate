@@ -10,11 +10,12 @@ type Migrator struct {
 	driver   string // Driver name
 	dsn      string // DSN for seed/migrate operations
 	root_dsn string // DSN for create/drop database operatoins
+	dbname   string // DB name
 }
 
 // Initialize new migrator instance.
-func NewMigrator(driver, dsn, root_dsn string) *Migrator {
-	return &Migrator{driver, dsn, root_dsn}
+func NewMigrator(driver, dsn, root_dsn, dbname string) *Migrator {
+	return &Migrator{driver, dsn, root_dsn, dbname}
 }
 
 // Connect to the given dsn
@@ -53,13 +54,13 @@ func execute(driver, dsn string, exec migrator_t, cmd string) error {
 }
 
 // Create database
-func (m *Migrator) Create(dbname string) error {
-	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("CREATE DATABASE %s", dbname))
+func (m *Migrator) Create() error {
+	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("CREATE DATABASE %s", m.dbname))
 }
 
 // Drop database
 func (m *Migrator) Drop(dbname string) error {
-	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("DROP DATABASE %s", dbname))
+	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("DROP DATABASE %s", m.dbname))
 }
 
 // Execute migrations
