@@ -59,7 +59,7 @@ func (m *Migrator) Create() error {
 }
 
 // Drop database
-func (m *Migrator) Drop(dbname string) error {
+func (m *Migrator) Drop() error {
 	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("DROP DATABASE %s", m.dbname))
 }
 
