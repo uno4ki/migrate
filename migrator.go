@@ -63,6 +63,11 @@ func (m *Migrator) Drop() error {
 	return execute(m.driver, m.root_dsn, nil, fmt.Sprintf("DROP DATABASE %s", m.dbname))
 }
 
+// Truncate database
+func (m *Migrator) Truncate(table string) error {
+	return execute(m.driver, m.dsn, nil, fmt.Sprintf("TRUNCATE %s", table))
+}
+
 // Execute migrations
 func (m *Migrator) Migrate() error {
 	return execute(m.driver, m.dsn, migrate, "")
